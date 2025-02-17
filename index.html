@@ -169,7 +169,7 @@
 </head>
 <body>
      <div class="container"></div>
-    <audio autoplay loop>
+    <audio id="birthdayAudio" autoplay loop>
         <source src="thuy-universe-RlkgRO39.mp3" type="audio/mp3">
     </audio>
     
@@ -185,11 +185,18 @@
 
     <script>  
     window.addEventListener("load", function() {
-        var audio = document.getElementById("audio");
-        audio.play().catch(function(error) {
-            console.log("Autoplay failed:", error);
-        });
+    var audio = document.getElementById("birthdayAudio");
+
+    // Attempt to play on load, but if blocked, wait for user interaction
+    audio.play().catch(function(error) {
+        console.log("Autoplay blocked. Waiting for user interaction...");
     });
+
+    // Play the audio when the user clicks anywhere
+    document.body.addEventListener("click", function() {
+        audio.play();
+    }, { once: true }); // Ensures it only triggers once
+});
         function createConfetti() {
             for (let i = 0; i < 200; i++) {
                 let confetti = document.createElement("div");

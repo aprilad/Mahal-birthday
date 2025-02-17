@@ -168,7 +168,7 @@
     </style>
 </head>
 <body>
-   <div class="container"></div>
+     <div class="container"></div>
     <audio autoplay loop>
         <source src="thuy-universe-RlkgRO39.mp3" type="audio/mp3">
     </audio>
@@ -183,7 +183,13 @@
         </div>
     </div>
 
-    <script>
+    <script>  
+    window.addEventListener("load", function() {
+        var audio = document.getElementById("audio");
+        audio.play().catch(function(error) {
+            console.log("Autoplay failed:", error);
+        });
+    });
         function createConfetti() {
             for (let i = 0; i < 200; i++) {
                 let confetti = document.createElement("div");
@@ -220,7 +226,7 @@
             let notepad = document.getElementById("notepad");
             notepad.style.display = "block"; // Make sure notepad is visible before typing starts
 
-            const message =  
+            const message =  `
             🎉 Happy Birthday, My Love!
             On this special day, I just want to remind you how much you mean to me. 
             You are my happiness, my strength, and my favorite person in the world.I’m so grateful for every moment 
@@ -231,7 +237,7 @@
             to be kinder, and to be safe always, especially when riding your motor.I hope this year brings you endless joy,
             success, and all the love you deserve. No matter what, I’ll always be here cheering you on and loving you with 
             all my heart.Enjoy your day, my love! You deserve all the happiness in the world.
-                        I love you! 😊 ❤️ ;
+                        I love you! 😊 ❤️ `;
 
             typeText(message);
         }

@@ -96,29 +96,49 @@
         }
 
         /* Responsive Design */
-        /* Tablets (Between 768px and 1024px) */
-        @media (max-width: 1024px) {
-            body {
-                background-size: cover;
-            }
+@media (max-width: 1024px) {
+    .notepad-container {
+        width: 80vw;
+        height: auto;
+        padding: 20px;
+    }
 
-            .notepad-container {
-                width: 80vw; /* Adjusts dynamically */
-                height: auto;
-                padding: 12px 8px;
-            }
+    #typedText {
+        font-size: 14px;
+        left: 20px;
+        top: 50px;
+    }
 
-            #typedText {
-                font-size: 14px; /* Medium font */
-                left: 20px;
-                top: 60px;
-            }
+    #birthdayImage {
+        top: 5%;
+        width: 80%;
+    }
+}
 
-            #birthdayImage {
-                top: -5%;  /* Adjust image position on tablet */
-                width: 90%;  /* Adjust image size */
-            }
-        }
+@media (max-width: 414px) {  /* iPhone 11 */
+    .notepad-container {
+        width: 85vw;  /* Takes up 85% of the screen */
+        height: auto; /* Adjusts based on text */
+        padding: 10px 0px; /* Reduce padding */
+        background-size: contain;
+    }
+
+    #typedText {
+        font-size: 12px; /* Adjust text size */
+        left: 20px;
+        top: 10px;
+        line-height: 1.5;
+        white-space: normal; /* Ensure wrapping */
+    }
+
+    #birthdayImage {
+        top: 5%;  
+        width: 85%;  
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
 
         /* Mobile Devices (Below 768px) */
         @media (max-width: 600px) {
@@ -135,8 +155,8 @@
 
             #typedText {
                 font-size: 13px; /* Smaller font for readability */
-                left: 80px;
-                top: 30px;
+                left: 30px;
+                top: 20px;
                 line-height: 1.4;
             }
 
@@ -163,7 +183,13 @@
         </div>
     </div>
 
-    <script>
+    <script>  
+    window.addEventListener("load", function() {
+        var audio = document.getElementById("audio");
+        audio.play().catch(function(error) {
+            console.log("Autoplay failed:", error);
+        });
+    });
         function createConfetti() {
             for (let i = 0; i < 200; i++) {
                 let confetti = document.createElement("div");

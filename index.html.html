@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: url('background1.png') no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            color: white;
+        }
+        .container {
+            position: relative;
+            height: 100vh;
+        }
+        #birthdayImage {
+            position: absolute;
+            top: -2%;
+            left: 30%;
+            transform: translateX(-50%);
+            max-width: 80%; 
+            width: 800px;
+            opacity: 0;
+            animation: dropRight 1.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes dropRight {
+            0% { opacity: 0; transform: translate(50%, -100px); } 
+            100% { opacity: 1; transform: translate(50%, 90px); } 
+        }
+
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: red;
+            opacity: 0;
+            animation: confetti-fall 5s ease-out forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% { opacity: 1; transform: translateY(-100vh) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* "Press to Continue" Button */
+        #continueMessage {
+            font-family: 'Century Gothic', monospace;
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #21abcd;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid white;
+    z-index: 10;
+        }
+
+        /* Notepad Container */
+        .notepad-container {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 550px;
+            height: 400px;
+            background: url('notepad.png') no-repeat center center;
+            background-size: contain;
+            padding: 15px 10px;
+            text-align: left;
+        }
+
+        /* Typing Effect Text */
+        #typedText {
+            position: absolute;
+            top: 72px;  /* Adjust vertical position */
+            left: 30px; /* Adjust horizontal position */
+            font-size: 15px; /* Adjust font size */
+            font-weight: regular;
+            font-family: 'Cookie', cursive; /* Cursive Font */
+            color: black;
+            white-space: pre-wrap; /* Keeps line breaks */
+            line-height: 1.6; /* Adjust to match notepad lines */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="birthdayImage" src="photo1.png" alt="Happy Birthday">
+        <p id="continueMessage" onclick="showMessage()">🎉 Press to Continue 🎉</p>   
+        
+        <!-- Notepad -->
+        <div class="notepad-container" id="notepad">
+            <span id="typedText" class="typed-text"></span>
+        </div>
+    </div>
+
+    <script>
+        function createConfetti() {
+            for (let i = 0; i < 200; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.width = confetti.style.height = Math.random() * 10 + "px";
+
+                const colors = ["red", "blue", "yellow", "green", "purple", "orange", "pink"];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + "s"; 
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+        function typeText(text, index = 0) {
+            let typedElement = document.getElementById("typedText");
+            
+            if (index === 0) {
+                typedElement.innerHTML = "";  // Clear previous text before typing
+            }
+
+            if (index < text.length) {
+                typedElement.innerHTML += text[index];
+                setTimeout(() => typeText(text, index + 1), 50); // Typing speed
+            }
+        }
+
+        function showMessage() {
+            document.getElementById("continueMessage").style.display = "none";
+            let notepad = document.getElementById("notepad");
+            notepad.style.display = "block"; // Make sure notepad is visible before typing starts
+
+            const message = 
+                    `🎉 Happy Birthday, My Love!
+            On this special day, I just want to remind you how much you mean to me. 
+            You are my happiness, my strength, and my favorite person in the world.I’m so grateful for every moment 
+            we share, every laugh, our adventure,and every little thing that makes our love so special.My only wish 
+            for you is that all your dreams come true, including those for your family. I’m always here to support you, 
+            ready to listen to your problems, and whenever you feel like you can’t handle things anymore, just remember 
+            that I’m always here for you. Always let me know how you’re feeling.I also wish for you to always be healthy, 
+            to be kinder, and to be safe always, especially when riding your motor.I hope this year brings you endless joy,
+            success, and all the love you deserve. No matter what, I’ll always be here cheering you on and loving you with 
+            all my heart.Enjoy your day, my love! You deserve all the happiness in the world.
+                        I love you! 😊 `;
+            typeText(message);
+        }
+        createConfetti();
+    </script>
+</body>
+</html>

@@ -184,19 +184,20 @@
     </div>
 
     <script>  
-    window.addEventListener("load", function() {
+    document.addEventListener("DOMContentLoaded", function () {
     var audio = document.getElementById("birthdayAudio");
 
-    // Attempt to play on load, but if blocked, wait for user interaction
-    audio.play().catch(function(error) {
-        console.log("Autoplay blocked. Waiting for user interaction...");
-    });
+    // Attempt to autoplay the audio when the page loads
+    audio.play().catch(function (error) {
+        console.log("Autoplay failed:", error);
 
-    // Play the audio when the user clicks anywhere
-    document.body.addEventListener("click", function() {
-        audio.play();
-    }, { once: true }); // Ensures it only triggers once
+        // If autoplay is blocked, wait for user interaction to play the audio
+        document.body.addEventListener("click", function () {
+            audio.play();
+        }, { once: true });
+    });
 });
+
         function createConfetti() {
             for (let i = 0; i < 200; i++) {
                 let confetti = document.createElement("div");

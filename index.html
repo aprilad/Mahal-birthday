@@ -25,7 +25,7 @@
             top: -2%;
             left: 30%;
             transform: translateX(-50%);
-            max-width: 80%; 
+            max-width: 100%; /* Make the image responsive */
             width: 800px;
             opacity: 0;
             animation: dropRight 1.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -53,28 +53,28 @@
         /* "Press to Continue" Button */
         #continueMessage {
             font-family: 'Century Gothic', monospace;
-    position: fixed;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    color: #21abcd;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 2px solid white;
-    z-index: 10;
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: #21abcd;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid white;
+            z-index: 10;
         }
 
-        /* Notepad Container */
+        /* Notepad Container - Default for Laptops */
         .notepad-container {
             display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 550px;
+            width: 550px; /* Default width for larger screens */
             height: 400px;
             background: url('notepad.png') no-repeat center center;
             background-size: contain;
@@ -94,10 +94,66 @@
             white-space: pre-wrap; /* Keeps line breaks */
             line-height: 1.6; /* Adjust to match notepad lines */
         }
+
+        /* Responsive Design */
+        /* Tablets (Between 768px and 1024px) */
+        @media (max-width: 1024px) {
+            body {
+                background-size: cover;
+            }
+
+            .notepad-container {
+                width: 80vw; /* Adjusts dynamically */
+                height: auto;
+                padding: 12px 8px;
+            }
+
+            #typedText {
+                font-size: 14px; /* Medium font */
+                left: 20px;
+                top: 60px;
+            }
+
+            #birthdayImage {
+                top: -5%;  /* Adjust image position on tablet */
+                width: 90%;  /* Adjust image size */
+            }
+        }
+
+        /* Mobile Devices (Below 768px) */
+        @media (max-width: 600px) {
+            body {
+                background-size: cover; /* Ensures full background */
+                background-position: center;
+            }
+
+            .notepad-container {
+                width: 90vw; /* Takes up most of the screen */
+                height: auto; /* Adapts to text content */
+                padding: 160px 65px; /* Smaller padding */
+            }
+
+            #typedText {
+                font-size: 13px; /* Smaller font for readability */
+                left: 80px;
+                top: 30px;
+                line-height: 1.4;
+            }
+
+            #birthdayImage {
+                top: 10%;  /* Adjust image position on mobile */
+                width: 90%;  /* Adjust image size for mobile */
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container"></div>
+    <audio autoplay loop>
+        <source src="thuy-universe-RlkgRO39.mp3" type="audio/mp3">
+    </audio>
+    
+
         <img id="birthdayImage" src="photo1.png" alt="Happy Birthday">
         <p id="continueMessage" onclick="showMessage()">🎉 Press to Continue 🎉</p>   
         
@@ -144,8 +200,8 @@
             let notepad = document.getElementById("notepad");
             notepad.style.display = "block"; // Make sure notepad is visible before typing starts
 
-            const message = 
-                    `🎉 Happy Birthday, My Love!
+            const message =  `
+            🎉 Happy Birthday, My Love!
             On this special day, I just want to remind you how much you mean to me. 
             You are my happiness, my strength, and my favorite person in the world.I’m so grateful for every moment 
             we share, every laugh, our adventure,and every little thing that makes our love so special.My only wish 
@@ -155,7 +211,8 @@
             to be kinder, and to be safe always, especially when riding your motor.I hope this year brings you endless joy,
             success, and all the love you deserve. No matter what, I’ll always be here cheering you on and loving you with 
             all my heart.Enjoy your day, my love! You deserve all the happiness in the world.
-                        I love you! 😊 `;
+                        I love you! 😊 ❤️ `;
+
             typeText(message);
         }
         createConfetti();

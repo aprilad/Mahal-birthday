@@ -187,16 +187,25 @@
     document.addEventListener("DOMContentLoaded", function () {
     var audio = document.getElementById("birthdayAudio");
 
-    // Attempt to autoplay the audio when the page loads
-    audio.play().catch(function (error) {
+    // Attempt to play muted audio as soon as the page loads
+    audio.play().then(function () {
+        console.log("Autoplay (muted) successful!");
+
+        // Use a slight delay to unmute the audio after it starts playing
+        setTimeout(function() {
+            audio.muted = false; // Unmute the audio after a small delay
+        }, 500); // 500ms delay, adjust as needed
+    }).catch(function (error) {
         console.log("Autoplay failed:", error);
 
-        // If autoplay is blocked, wait for user interaction to play the audio
+        // If autoplay is blocked, wait for user interaction to start the audio
         document.body.addEventListener("click", function () {
-            audio.play();
+            audio.muted = false; // Unmute
+            audio.play(); // Play the audio after user interaction
         }, { once: true });
     });
 });
+
 
         function createConfetti() {
             for (let i = 0; i < 200; i++) {

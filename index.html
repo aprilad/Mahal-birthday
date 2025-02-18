@@ -9,7 +9,7 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: url('background1.png') no-repeat center center/cover;
+            background: url('background2.png') no-repeat center center/cover;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -20,12 +20,14 @@
             position: relative;
             height: 100vh;
         }
+        
+        /* First Image (Drops to Right) */
         #birthdayImage {
             position: absolute;
             top: -2%;
-            left: 25%;
+            left: 40%;
             transform: translateX(-50%);
-            max-width: 100%; /* Make the image responsive */
+            max-width: 100%;
             width: 800px;
             opacity: 0;
             animation: dropRight 1.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -35,7 +37,24 @@
             0% { opacity: 0; transform: translate(50%, -100px); } 
             100% { opacity: 1; transform: translate(50%, 90px); } 
         }
-
+        
+        /* Second Image (Drops to Left) */
+        #birthdayImage2 {
+            position: absolute;
+            top: 10%;
+            right: 30%;
+            transform: translateX(50%);
+            max-width: 100%;
+            width: 600px;
+            opacity: 0;
+            animation: dropLeft 1.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        
+        @keyframes dropLeft {
+            0% { opacity: 0; transform: translate(-50%, -100px); } 
+            100% { opacity: 1; transform: translate(-50%, 90px); } 
+        }
+ 
         .confetti {
             position: fixed;
             width: 12px;
@@ -72,9 +91,9 @@
             display: none;
             position: absolute;
             top: 50%;
-            left: 50%;
+            left: 60%;
             transform: translate(-50%, -50%);
-            width: 550px; /* Default width for larger screens */
+            width: 800px; /* Default width for larger screens */
             height: 400px;
             background: url('notepad.png') no-repeat center center;
             background-size: contain;
@@ -85,8 +104,8 @@
         /* Typing Effect Text */
         #typedText {
             position: absolute;
-            top: 70px;  /* Adjust vertical position */
-            left: 15px; /* Adjust horizontal position */
+            top: 35px;  /* Adjust vertical position */
+            left: 120px; /* Adjust horizontal position */
             font-size: 16px; /* Adjust font size */
             font-weight: regular;
             font-family: 'Cookie', cursive; /* Cursive Font */
@@ -104,14 +123,14 @@
     }
 
     #typedText {
-        font-size: 16px;
-        left: 5px;
+        font-size: 14px;
+        left: 20px;
         top: 50px;
     }
 
     #birthdayImage {
-        top: 10%;
-        width: 90%;
+        top: 5%;
+        width: 80%;
     }
 }
 
@@ -124,7 +143,7 @@
     }
 
     #typedText {
-        font-size: 15px; /* Adjust text size */
+        font-size: 12px; /* Adjust text size */
         left: 20px;
         top: 10px;
         line-height: 1.5;
@@ -134,7 +153,7 @@
     #birthdayImage {
         top: 5%;  
         width: 85%;  
-        left: 60%;
+        left: 50%;
         transform: translateX(-50%);
     }
 }
@@ -168,34 +187,28 @@
     </style>
 </head>
 <body>
-     <div class="container"></div>
-   <audio id="audioPlayer" autoplay loop>
-    <source src="thuy-universe-RlkgRO39.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-</audio>
-<img id="birthdayImage" src="photo1.png" alt="Happy Birthday">
-        <p id="continueMessage" onclick="showMessage()">🎉 Press to Continue 🎉</p>   
+    <div class="container"></div>
+    <audio autoplay loop>
+        <source src="thuy-universe-RlkgRO39.mp3" type="audio/mp3">
+    </audio>
+
+        <img id="birthdayImage" src="photo1.png" alt="Happy Birthday">
+        <img id="birthdayImage2" src="photo4.png" alt="Happy Birthday">
+    <p id="continueMessage" onclick="showMessage()">🎉 Press to Continue 🎉</p>   
         
         <!-- Notepad -->
         <div class="notepad-container" id="notepad">
             <span id="typedText" class="typed-text"></span>
         </div>
     </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let audio = document.getElementById("audioPlayer");
 
-        // Try to play automatically
-        audio.play().catch(() => {
-            console.log("Autoplay blocked. Waiting for user interaction.");
-        });
-
-        // Allow user to manually start playback if needed
-        document.addEventListener("click", function() {
-            audio.play();
+    <script>  
+    window.addEventListener("load", function() {
+        var audio = document.getElementById("audio");
+        audio.play().catch(function(error) {
+            console.log("Autoplay failed:", error);
         });
     });
-    
         function createConfetti() {
             for (let i = 0; i < 200; i++) {
                 let confetti = document.createElement("div");
